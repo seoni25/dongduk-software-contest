@@ -60,6 +60,6 @@ function showMessage(message){
   //alert(message); -->확인용
   //문제)popup창에 css적용이 안됨.
   let openPopup = window.open('./letter.html', 'popup', 'width=500, height=400');
-  //openPopup.document.write("<div>" + message + "</div>");
-  openPopup.document.getElementById("content") = message;
+  openPopup.document.write("<div>" + message + "</div>");
+  //openPopup.document.getElementById("content") = message;
 }
