@@ -1,8 +1,3 @@
-//document.write('<script src=/scripts/letterGenerator.js></script>')
-var letterArray = []; //buy()함수에서 편지를 배열에 저장하고 읽기 위한 배열
-var letterCount = 0;
-
-
 function input() {
 	/*input 함수
 	put 버튼을 눌러 자판기에 돈을 넣으면,
@@ -14,6 +9,11 @@ function input() {
 	let insertedMoney = parseInt(document.getElementById("insertedMoney").value);
 	let changeMoney = parseInt(document.getElementById("changeMoney").innerText);
 	let walletMoney = parseInt(document.getElementById("wallet_money").innerText);
+	
+	if(walletMoney < insertedMoney){
+		alert("가지고 있는 돈보다 더 많이 입력했습니다.");
+		return;
+	}
 	
 	changeMoney += insertedMoney;
 	walletMoney -= insertedMoney;
@@ -28,12 +28,11 @@ function buy(item) {
 	select_button을 누르면,
 	0. 잔액(change)에 있는 금액 < price인지 검사
 	1. 잔액에서 그만큼 돈이 차감됨.
-	2. letter 생성됨.
-	3. item에 letter 저장됨.
-	4. items란에 물품이 들어감.*/
+	2. letter 생성되고 	배열에 저장됨.
+	3. items란에 물품이 들어감.*/
 
 
-	/*1번*/
+	/*0번*/
 	let price = parseInt(item.innerText);
 	let changeMoney = parseInt(document.getElementById("changeMoney").innerText);
 	
@@ -41,20 +40,18 @@ function buy(item) {
 		alert("돈이 부족합니다.");
 		return 0;
 	}
-
+	/*1번*/
 	changeMoney -= price;
-
 	document.getElementById("changeMoney").innerText = changeMoney;
 
 	/*2번*/
-	//let letter = letterGenerator(item);
+	letterGenerator(item);
+
 	/*3번*/
-	//???
-	/*4번*/
 	/*이미지와 text를 담을 container 만들기*/
 	let itemContainer = document.createElement("div");
 	itemContainer.className = 'purchased_item';
-	//itemContainer.id = 'purchased_item' + objCount;
+	itemContainer.id = 'purchased_item' + letterCount;
 	
 	/*item 이미지 가져오기*/
 	let itemNumber = item.getAttribute('id');

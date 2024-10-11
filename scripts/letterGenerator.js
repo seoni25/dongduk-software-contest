@@ -1,13 +1,14 @@
+const apiKey = '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'; // 여기에 본인의 OpenAI API 키를 넣으세요.
+const url = 'https://api.openai.com/v1/chat/completions';
+
+var letterArray = []; //편지를 배열에 저장
+var letterCount = 0;
+
 function letterGenerator(item){
-
-  const apiKey = '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'; // 여기에 본인의 OpenAI API 키를 넣으세요.
-
-  const url = 'https://api.openai.com/v1/chat/completions';
-  
   let keywordId = "item" + item.getAttribute('id') +"_text";
   let keyword = document.getElementById(keywordId).innerText;
-  //alert(keyword.innerText);
-  
+  let message ="";
+
   const headers = {
     'Authorization': `Bearer ${apiKey}`,
     'Content-Type': 'application/json'
@@ -27,19 +28,16 @@ function letterGenerator(item){
     body: JSON.stringify(data)
   }).then(response => response.json())
     .then(result => {
-      //chatGpt응답 전달 --> 편지내용 생성
-      let message = returnMessage(result.choices[0].message.content);
-      //편지 보여줌
+      //chatGpt응답 전달 --> 편지내용 gpt응답과 보내는 사람을 재조합하여 생성
+      message = generateMessage(result.choices[0].message.content);
+      //편지 저장
+      saveMessage(message);
+      //편지 보기
       showMessage(message);
-      //return message; //편지 저장
-      // 전체 응답을 보기 위해 JSON.stringify로 객체를 출력
-      //console.log(JSON.stringify(result));
-      // chatGpt가 생성한 응답 부분을 출력
-      //console.log(result.choices[0].message.content);
   })
-}
-
-function returnMessage (message){
+  }
+ 
+function generateMessage (message){
   const village = ['별빛 마을', '꿈의 섬', '바람골', '신비한 숲', '고래의 해변', '무지개섬', '조용한 항구', '파란 잔디', '별의 섬', '석양의 해변', 
     '달빛 정원', '구름 섬', '풀잎 마을', '봄빛 마을', '꿈의 정원', '여름의 끝 섬', '눈꽃 마을', '열매의 숲', '고양이 마을', '새싹 마을',
     '구름 정원', '북극의 별 섬', '햇살 마을', '다람쥐의 숲', '달콤한 과일 섬', '사탕나무 숲', '여우의 숲', '새벽의 정원', '꿈꾸는 달의 섬', '숨겨진 보물섬'
@@ -53,11 +51,17 @@ function returnMessage (message){
   let villagerName = villager[Math.floor(Math.random() * villager.length)];
   message =  message + "<p>" + villageName + "에서<br>" + villagerName + "</p>";
 
+  //편지 반환
   return message;
 }
 
+function saveMessage(message){
+  letterArray[letterCount] = message;
+  alert(letterArray[letterCount]);
+  letterCount++;
+}
+
 function showMessage(message){
-  //alert(message); -->확인용
   //문제)popup창에 css적용이 안됨.
   let openPopup = window.open('./letter.html', 'popup', 'width=500, height=400');
   openPopup.document.write("<div>" + message + "</div>");
