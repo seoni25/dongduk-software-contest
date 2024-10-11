@@ -1,0 +1,95 @@
+<!--vending machine-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>편지자판기</title>
+    <link rel="icon" type="images/logo.png" href="images/logo.png"/>
+    <link rel="stylesheet" type="text/css" href="styles/vendingMachine.css"/>
+    <script src="scripts/vendingMachine.js"></script>
+    <script src="scripts/letterGenerator.js"></script>
+</head>
+<body>
+    <div id="container">
+        <header>
+            <h2>The letter vending machine for you</h2>
+        </header>
+        <main id="machine">
+            <div id="items">
+                <div id="item-list">
+                    <div class="item">
+                        <div id="item0_text" align="center">#꿈</div>
+                        <img id="item0_img" src="images/cola-original.svg"/>
+                        <button class="select_button" id="0" onclick="letterGenerator(this); buy(this); ">0</button>
+                    </div>
+                    <div class="item">
+                        <div id="item1_text" align="center">#여행</div>
+                        <img id="item1_img" src="images/cola-orange.svg"/>
+                        <button class="select_button" id="1" onclick="letterGenerator(this); buy(this); ">1000</button>
+                    </div>
+                    <div class="item">
+                        <div id="item2_text" align="center">#비밀</div>
+                        <img id="item2_img" src="images/cola-yellow.svg"/>
+                        <button class="select_button" id="2" onclick="letterGenerator(this); buy(this); ">2000</button>
+                    </div>
+                    <div class="item">
+                        <div id="item3_text" align="center">#우주</div>
+                        <img id="item3_img" src="images/cola-green.svg"/>
+                        <button class="select_button" id="3" onclick="letterGenerator(this); buy(this); ">3000</button>
+                    </div>
+                    <div class="item">
+                        <div id="item4_text" align="center">#웃음</div>
+                        <img id="item4_img" src="images/cola-cool.svg"/>
+                        <button class="select_button" id="4" onclick="letterGenerator(this); buy(this); ">4000</button>
+                    </div>
+                    <div class="item">
+                        <div id="item5_text" align="center">#바람</div>
+                        <img id="item5_img" src="images/cola-violet.svg"/>
+                        <button class="select_button" id="5" onclick="letterGenerator(this); buy(this); ">5000</button>
+                    </div>
+                    <div class="item">
+                        <div id="item6_text" align="center">#음악</div>
+                        <img id="item6_img" src="images/cola-violet.svg"/>
+                        <button class="select_button" id="6" onclick="letterGenerator(this); buy(this); ">5000</button>
+                    </div>
+                    <div class="item">
+                        <div id="item7_text" align="center">#기다림</div>
+                        <img id="item7_img" src="images/cola-violet.svg"/>
+                        <button class="select_button" id="7" onclick="letterGenerator(this); buy(this); ">5000</button>
+                    </div>
+                </div>
+            </div>
+            <div id="machine-exit"></div>
+            <div id="machine-slot">
+                 <div id="machine-slot-money"></div>
+                <div id="machine-slot-coin"></div>
+            </div>
+        </main>
+        <sidebar>
+            <section id="wallet">
+                <h2>wallet</h2>
+                <div id="content_wallet">
+                    <p id="wallet_money"><strong>30000</strong></p>
+                </div>
+            </section>
+            <section id="myItems">
+                <h2>items</h2>
+                <div id="content_items">
+                    <!--선택한 item 이미지가 들어가는 곳-->
+                </div>
+            </section>
+            <section id="slot">
+                 <h2>slot</h2>
+                 <div id="content_slot">
+                    <input type="number" id="insertedMoney" min="1000" step="500"placeholder="입금액"/>
+                    <button id="put_button" onclick="input()">put</button>
+                    change: 
+                    <span id="change">0</span>
+                    <button id="change_button" onclick="change()">change</button>
+                </div>
+            </section>
+        </sidebar>
+    </div>
+</body>
+</html>

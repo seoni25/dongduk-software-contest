@@ -1,0 +1,19 @@
+/*초기 설정*/
+* {
+    padding: 0px;
+    margin: 0px;
+}
+ul li, ol li {
+    list-style: none;
+}
+a {
+    text-decoration: none;
+}
+
+html, body {
+    width: 100%;
+    height: auto;
+}
+div{
+    border: 1px solid black;
+}
