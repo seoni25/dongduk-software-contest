@@ -2,8 +2,9 @@ const apiKey = 'sk-proj-4FEzy0ehbBUZCG3isNiDKa0Yn4cf1FfcsA82sId2qzvMArVz3hrFgFoc
 const url = 'https://api.openai.com/v1/chat/completions';
 
 var letterArray = []; //편지를 배열에 저장
-var letterCount = 0;
+var letterCount = 0; //저장된 편지 수
 
+//chatGPT이용하여 편지 생성,저장,보기 함수
 function letterGenerator(item){
   let keywordId = "item" + item.getAttribute('id') +"_text";
   let keyword = document.getElementById(keywordId).innerText;
@@ -33,10 +34,13 @@ function letterGenerator(item){
       //편지 저장
       saveMessage(message);
       //편지 보기
-      showMessage(message);
+      showMessage(letterCount);
+      //저장된 편지 수 갱신
+      letterCount++;
   })
   }
- 
+
+//chatGPT가 생성한 내용에 보내는 사람을 랜덤으로 추가하여 최종 편지내용 반환
 function generateMessage (message){
   const village = ['별빛 마을', '꿈의 섬', '바람골', '신비한 숲', '고래의 해변', '무지개섬', '조용한 항구', '파란 잔디', '별의 섬', '석양의 해변', 
     '달빛 정원', '구름 섬', '풀잎 마을', '봄빛 마을', '꿈의 정원', '여름의 끝 섬', '눈꽃 마을', '열매의 숲', '고양이 마을', '새싹 마을',
@@ -51,19 +55,20 @@ function generateMessage (message){
   let villagerName = villager[Math.floor(Math.random() * villager.length)];
   message =  message + "<p>" + villageName + "에서<br>" + villagerName + "</p>";
 
-  //편지 반환
   return message;
 }
 
 function saveMessage(message){
   letterArray[letterCount] = message;
-  alert(letterArray[letterCount]);
-  letterCount++;
 }
 
-function showMessage(message){
+function showMessage(count){
   //문제)popup창에 css적용이 안됨.
   let openPopup = window.open('./letter.html', 'popup', 'width=500, height=400');
-  openPopup.document.write("<div>" + message + "</div>");
-  //openPopup.document.getElementById("content") = message;
+  openPopup.document.write("<div>" + letterArray[count] + "</div>");
+}
+
+//vendingMachine.js의 buy함수에서 itemContainer.value에 저장하기 위한 함수 -> 저장된 편지의 index역할을 함
+function getLetterCount() {
+  return letterCount;
 }
