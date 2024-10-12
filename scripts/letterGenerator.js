@@ -19,7 +19,9 @@ function letterGenerator(item){
     model: 'gpt-4o',
     messages: [
       { role: 'system', content: '너는 동숲 주민이 작성한 유리병 편지를 생성해.' },
-      { role: 'user', content: `${keyword}를 이용해서 반말로 5줄이내의 편지를 작성해줘. 편지 외의 내용, 보내는사람, 받는사람 모두 작성하지마. 그리고 한 문장이 끝나면 "<br>"을 적어줘` },
+      { role: 'user', content: `${keyword}를 이용해서 반말로 5줄이내의 편지를 작성해줘. 
+      편지 외의 내용, 보내는사람, 받는사람 모두 작성하지마. 
+      그리고 한 문장이 끝나면 "<br><br>"을 적어줘. 단 마지막 문장에는 붙이지 마` },
     ]
   };
 
@@ -53,7 +55,7 @@ function generateMessage (message){
 
   let villageName = village[Math.floor(Math.random() * village.length)];
   let villagerName = villager[Math.floor(Math.random() * villager.length)];
-  message =  message + "<p>" + villageName + "에서<br>" + villagerName + "</p>";
+  message =  message + "<br><br>"+ villageName + "에서<br>" + villagerName;
 
   return message;
 }
@@ -64,8 +66,17 @@ function saveMessage(message){
 
 function showMessage(count){
   //문제)popup창에 css적용이 안됨.
-  let openPopup = window.open('./letter.html', 'popup', 'width=500, height=400');
-  openPopup.document.write("<div>" + letterArray[count] + "</div>");
+  let openPopup = window.open("", 'popup', 'width=800, height=500');
+  openPopup.document.write(`
+  <html>
+    <head>
+      <link rel="stylesheet" type="text/css" href="styles/letter.css">
+    </head>
+    <body>
+      <div>` + letterArray[count] + `</div>
+    </body>
+  </html>  
+  `);
 }
 
 //vendingMachine.js의 buy함수에서 itemContainer.value에 저장하기 위한 함수 -> 저장된 편지의 index역할을 함

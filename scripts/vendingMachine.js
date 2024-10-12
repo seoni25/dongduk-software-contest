@@ -26,12 +26,12 @@ function input() {
 function buy(item) {
 	/*buy 함수
 	select_button을 누르면,
-	0. 잔액(change)에 있는 금액 < price인지 검사
-	1. 잔액에서 그만큼 돈이 차감됨.
-	2. letter 생성되고 	배열에 저장됨. 저장된 letter를 클릭 시 편지내용을 다시 볼 수 있음.
-	3. items란에 물품이 들어감.*/
+	1. 잔액(change)에 있는 금액 < price인지 검사
+	2. 잔액에서 그만큼 돈이 차감됨.
+	3. letter 생성되고 	배열에 저장됨. 저장된 letter를 클릭 시 편지내용을 다시 볼 수 있음.
+	4. items란에 물품이 들어감.*/
 
-	//0번
+	//1번
 	let price = parseInt(item.innerText);
 	let changeMoney = parseInt(document.getElementById("changeMoney").innerText);
 	
@@ -39,14 +39,14 @@ function buy(item) {
 		alert("돈이 부족합니다.");
 		return 0;
 	}
-	//1번
+	//2번
 	changeMoney -= price;
 	document.getElementById("changeMoney").innerText = changeMoney;
 
-	//2번
+	//3번
 	letterGenerator(item);
 
-	//3번 
+	//4번 
 	//이미지와 text를 담을 container 만들기
 	let itemContainer = document.createElement("div");
 	itemContainer.className = 'purchased_item';
@@ -86,7 +86,7 @@ function change() {
 
 	let changeMoney = parseInt(document.getElementById("changeMoney").innerText);
 
-	//잔액이 남아있는 경우
+	//1번 잔액이 남아있는 경우
 	if(changeMoney > 0){
 		let walletMoney = document.getElementById("wallet_money").innerText;
 		walletMoney = parseInt(walletMoney);
@@ -95,7 +95,7 @@ function change() {
 		document.getElementById("wallet_money").innerText = walletMoney;
 		document.getElementById("changeMoney").innerText = 0;
 	}
-	//잔액이 남아있지 않는 경우
+	//2번 잔액이 남아있지 않는 경우
 	else {
 		alert("반환할 잔액이 없습니다.");
 	}
