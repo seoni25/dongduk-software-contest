@@ -18,9 +18,10 @@ function letterGenerator(item){
   const data = {
     model: 'gpt-4o',
     messages: [
-      { role: 'system', content: '너는 동숲 주민이 작성한 유리병 편지를 생성해.' },
-      { role: 'user', content: `${keyword}를 이용해서 반말로 5줄이내의 편지를 작성해줘. 
-      편지 외의 내용, 보내는사람, 받는사람 모두 작성하지마. 
+      { role: 'system', content: '너는 감성적인 유리병 편지를 생성해.' },
+      { role: 'user', content: `${keyword}를 이용해서 반말이나 존댓말 중에 하나를 선택해서 편지를 작성해줘. 
+      보내는사람과 받는 사람의 관계는 서로 모르는 사이야.
+      그러니 편지 외의 내용, 보내는사람, 받는사람 모두 작성하지마. 
       그리고 한 문장이 끝나면 "<br><br>"을 적어줘. 단 마지막 문장에는 붙이지 마` },
     ]
   };
@@ -65,7 +66,6 @@ function saveMessage(message){
 }
 
 function showMessage(count){
-  //문제)popup창에 css적용이 안됨.
   let openPopup = window.open("", 'popup', 'width=800, height=500');
   openPopup.document.write(`
   <html>

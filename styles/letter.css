@@ -9,7 +9,15 @@ ul li, ol li {
 a {
     text-decoration: none;
 }
-
+@font-face {
+    font-family: 'Hana_handwriting';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/naverfont_05@1.0/Hana_handwriting.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+body{
+    font-family: 'Hana_handwriting';
+}
 html, body {
     width: 100%;
     height: auto;
@@ -24,5 +32,5 @@ div{
     transform: translate(-50%, -50%);
     max-width: 100%;
     height: auto;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
 }

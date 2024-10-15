@@ -7,13 +7,14 @@
     <title>편지자판기</title>
     <link rel="icon" type="images/logo.png" href="images/logo.png"/>
     <link rel="stylesheet" type="text/css" href="styles/vendingMachine.css"/>
+    <script src="scripts/background.js"></script>
     <script src="scripts/vendingMachine.js"></script>
     <script src="scripts/letterGenerator.js"></script>
 </head>
 <body>
     <div id="container">
         <header>
-            <h2>The letter vending machine for you</h2>
+            <h1>마음 자판기</h1>
         </header>
         <main id="machine">
             <div id="items">
@@ -68,25 +69,22 @@
         </main>
         <sidebar>
             <section id="wallet">
-                <h2>wallet</h2>
+                <h2>지갑</h2>
                 <div id="content_wallet">
-                    <p id="wallet_money"><strong>30000</strong></p>
+                    <p id="wallet_money">0</p>
                 </div>
             </section>
             <section id="myItems">
-                <h2>items</h2>
+                <h2>가방</h2>
                 <div id="content_items">
                     <!--선택한 item 이미지가 들어가는 곳-->
                 </div>
             </section>
             <section id="slot">
-                 <h2>slot</h2>
+                 <h2>투입구</h2>
                  <div id="content_slot">
                     <input type="number" id="insertedMoney" min="1000" step="500" placeholder="입금액"/>
                     <button id="put_button" onclick="input()">put</button>
-                    change: 
-                    <span id="changeMoney">0</span>
-                    <button id="change_button" onclick="change()">change</button>
                 </div>
             </section>
         </sidebar>
