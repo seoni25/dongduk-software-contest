@@ -1,19 +1,21 @@
 const apiKey = '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'; // 여기에 본인의 OpenAI API 키를 넣으세요.
-const url = 'https://api.openai.com/v1/chat/completions';
+const url1 = 'https://api.openai.com/v1/chat/completions'; //message생성
+const url2 = 'https://api.openai.com/v1/images/generations'; //image생성
+
+const headers = {
+  'Authorization': `Bearer ${apiKey}`,
+  'Content-Type': 'application/json'
+};
 
 var letterArray = []; //편지를 배열에 저장
 var letterCount = 0; //저장된 편지 수
 
 //chatGPT이용하여 편지 생성,저장,보기 함수
-function letterGenerator(item){
+async function letterGenerator(item){
   let keywordId = "item" + item.getAttribute('id') +"_text";
   let keyword = document.getElementById(keywordId).innerText;
   let message ="";
-
-  const headers = {
-    'Authorization': `Bearer ${apiKey}`,
-    'Content-Type': 'application/json'
-  };
+  let image ="";
 
   const data = {
     model: 'gpt-4o',
@@ -26,22 +28,27 @@ function letterGenerator(item){
     ]
   };
 
-  fetch(url, {
+  const response = await fetch(url1, {
     method: 'POST',
     headers: headers,
     body: JSON.stringify(data)
-  }).then(response => response.json())
-    .then(result => {
-      //chatGpt응답 전달 --> 편지내용 gpt응답과 보내는 사람을 재조합하여 생성
-      message = generateMessage(result.choices[0].message.content);
-      //편지 저장
-      saveMessage(message);
-      //편지 보기
-      showMessage(letterCount);
-      //저장된 편지 수 갱신
-      letterCount++;
   })
-  }
+  const result = await response.json();
+
+  //chatGpt응답 전달 --> 편지내용 gpt응답과 보내는 사람을 재조합하여 생성
+  message = await generateMessage(result.choices[0].message.content);
+
+  //img생성
+  image = await generateImage(message);
+
+  //img + message -> 편지 저장
+  //saveMessage(message);
+  saveMessage(message, image);
+  //편지 보기
+  showMessage(letterCount);
+  //저장된 편지 수 갱신
+  letterCount++;
+}
 
 //chatGPT가 생성한 내용에 보내는 사람을 랜덤으로 추가하여 최종 편지내용 반환
 function generateMessage (message){
@@ -60,9 +67,11 @@ function generateMessage (message){
 
   return message;
 }
-
-function saveMessage(message){
-  letterArray[letterCount] = message;
+/*function saveMessage(message){
+  letterArray[letterCount] = {msg : message};
+}*/
+function saveMessage(message, image){
+  letterArray[letterCount] = {msg : message, img: image};
 }
 
 function showMessage(count){
@@ -73,7 +82,10 @@ function showMessage(count){
       <link rel="stylesheet" type="text/css" href="styles/letter.css">
     </head>
     <body>
-      <div>` + letterArray[count] + `</div>
+      <div id="container">
+        <div class="img"><img src = "${letterArray[count].img}"></div>
+        <div class="text">${letterArray[count].msg}</div>
+      </div>
     </body>
   </html>  
   `);
@@ -82,4 +94,20 @@ function showMessage(count){
 //vendingMachine.js의 buy함수에서 itemContainer.value에 저장하기 위한 함수 -> 저장된 편지의 index역할을 함
 function getLetterCount() {
   return letterCount;
+}
+
+async function generateImage(message) {
+  const imageResponse = await fetch(url2, {
+    method: 'POST',
+    headers: headers,
+    body: JSON.stringify({
+      model: "dall-e-3",
+      prompt: `${message}는 편지내용이야. 여기에 어울리는 밝고 감성적이면서 글이 없는 이미지를 생성해줘.`,
+      size: "1024x1024",
+    })
+  });
+  
+  const imageData = await imageResponse.json();
+  console.log(imageData);
+  return imageData.data[0].url;
 }

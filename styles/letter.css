@@ -21,16 +21,35 @@ body{
 html, body {
     width: 100%;
     height: auto;
-    background-image: url("../images/letter1.jpg");
+    background-image: url("../images/letter2.jpg");
     background-size:cover;
     background-repeat: no-repeat;
 }
-div{
+#container{
+    width: auto;
     position:absolute;
     top:50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    max-width: 100%;
+    left:50%;
+    transform: translate(-50%, -50%);/
+}
+div{
+    display:inline-flex;
+    margin: 10px;
+}
+.text{
+    min-width: 300px;
+    max-width: 300px;
     height: auto;
-    /*border: 1px solid black;*/
+    padding: 30px;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+.img {
+    min-width: 300px;
+    width: 300px;
+    padding: 10px;
+}
+img{
+    width: 100%;
+    height: 100%;
 }

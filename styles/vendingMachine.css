@@ -20,16 +20,16 @@ body {
 }
 /*****레이아웃 설정*****/
 html, body {
-    width: 100%;
+    width: 100vw;
     height: auto;
     background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.3)), url("../images/background.jpg");
     background-size:100vw 102vh;
 }
 #container {  
     position:absolute;
-    top: 50%;
+    top: 0%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, 0%);
     width: 1000px;
     height: auto;
     padding:1%;
@@ -39,8 +39,8 @@ header {
     height: 100px;
     margin: 0px 0px 10px 0px;
     background-color: none;
-    border:3px solid black;
-    border-radius: 10px;
+    /*border:3px solid black;
+    border-radius: 10px;*/
 }
 h2{
     text-align: center;
