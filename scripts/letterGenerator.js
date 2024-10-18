@@ -1,4 +1,4 @@
-const apiKey = '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'; // 여기에 본인의 OpenAI API 키를 넣으세요.
+const apiKey = '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'; // 여기에 본인의 OpenAI API 키를 넣으세요.
 const url1 = 'https://api.openai.com/v1/chat/completions'; //message생성
 const url2 = 'https://api.openai.com/v1/images/generations'; //image생성
 
