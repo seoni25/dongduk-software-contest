@@ -8,8 +8,7 @@ const headers = {
   'Content-Type': 'application/json'
 };
 
-var letterArray = []; //편지를 배열에 저장
-var letterCount = 0; //저장된 편지 수
+var letterCount = 0; //로컬스토리지에 저장된 편지 수
 
 //chatGPT이용하여 편지 생성,저장,보기 함수
 async function letterGenerator(item){
@@ -37,7 +36,7 @@ async function letterGenerator(item){
   const result = await response.json();
 
   alert("편지를 여는 중입니다. 잠시만 기다려주세요.");
-  
+
   //chatGpt응답 전달 --> 편지내용 gpt응답과 보내는 사람을 재조합하여 생성
   message = await generateMessage(result.choices[0].message.content);
 
@@ -76,7 +75,18 @@ function generateMessage (message){
   letterArray[letterCount] = {msg : message};
 }*/
 function saveMessage(message, image){
-  letterArray[letterCount] = {msg : message, img: image};
+  if(localStorage.getItem('msg') == null && localStorage.getItem('img') == null){
+    localStorage.setItem('msg', '[]');
+    localStorage.setItem('img', '[]');
+  }
+  var msgArray = JSON.parse(localStorage.getItem('msg'));
+  var imgArray = JSON.parse(localStorage.getItem('img'));
+
+  msgArray.push(message);
+  imgArray.push(image);
+
+  localStorage.setItem('msg', JSON.stringify(msgArray));
+  localStorage.setItem('img', JSON.stringify(imgArray));
 }
 
 function showMessage(count){
@@ -88,8 +98,8 @@ function showMessage(count){
     </head>
     <body>
       <div id="container">
-        <div class="img"><img src="${letterArray[count].img}"></div>
-        <div class="text">${letterArray[count].msg}</div>
+        <div class="img"><img src="${JSON.parse(localStorage.getItem('img'))[count]}"></div>
+        <div class="text">${JSON.parse(localStorage.getItem('msg'))[count]}</div>
       </div>
     </body>
   </html>  
