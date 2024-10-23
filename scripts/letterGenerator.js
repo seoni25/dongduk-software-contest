@@ -22,6 +22,7 @@ async function letterGenerator(item){
     messages: [
       { role: 'system', content: '너는 감성적인 유리병 편지를 생성해.' },
       { role: 'user', content: `${keyword}를 이용해서 반말이나 존댓말 중에 하나를 선택해서 편지를 작성해줘. 
+      절대 반말이랑 존댓말을 섞어서 쓰지마.
       보내는사람과 받는 사람의 관계는 서로 모르는 사이야.
       그러니 편지 외의 내용, 보내는사람, 받는사람 모두 작성하지마. 
       그리고 한 문장이 끝나면 "<br><br>"을 적어줘. 단 마지막 문장에는 붙이지 마` },
@@ -75,22 +76,22 @@ function generateMessage (message){
   letterArray[letterCount] = {msg : message};
 }*/
 function saveMessage(message, image){
-  if(localStorage.getItem('msg') == null && localStorage.getItem('img') == null){
-    localStorage.setItem('msg', '[]');
-    localStorage.setItem('img', '[]');
+  if(sessionStorage.getItem('msg') == null && sessionStorage.getItem('img') == null){
+    sessionStorage.setItem('msg', '[]');
+    sessionStorage.setItem('img', '[]');
   }
-  var msgArray = JSON.parse(localStorage.getItem('msg'));
-  var imgArray = JSON.parse(localStorage.getItem('img'));
+  var msgArray = JSON.parse(sessionStorage.getItem('msg'));
+  var imgArray = JSON.parse(sessionStorage.getItem('img'));
 
   msgArray.push(message);
   imgArray.push(image);
 
-  localStorage.setItem('msg', JSON.stringify(msgArray));
-  localStorage.setItem('img', JSON.stringify(imgArray));
+  sessionStorage.setItem('msg', JSON.stringify(msgArray));
+  sessionStorage.setItem('img', JSON.stringify(imgArray));
 }
 
 function showMessage(count){
-  let letterPage = window.open("", 'popup', 'width=800, height=500');
+  let letterPage = window.open("", 'popup');
   letterPage.document.write(`
   <html>
     <head>
@@ -98,8 +99,8 @@ function showMessage(count){
     </head>
     <body>
       <div id="container">
-        <div class="img"><img src="${JSON.parse(localStorage.getItem('img'))[count]}"></div>
-        <div class="text">${JSON.parse(localStorage.getItem('msg'))[count]}</div>
+        <div class="img"><img src="${JSON.parse(sessionStorage.getItem('img'))[count]}"></div>
+        <div class="text">${JSON.parse(sessionStorage.getItem('msg'))[count]}</div>
       </div>
     </body>
   </html>  
