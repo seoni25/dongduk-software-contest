@@ -1,3 +1,4 @@
+//apikey를 .env와 node.js를 이용해서 관리하려 했으나 혼자 개발하기에는 복잡한 관계로 이번 프로젝트에서 하지 않고자 함.
 const apiKey = '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'; // 여기에 본인의 OpenAI API 키를 넣으세요.
 const url1 = 'https://api.openai.com/v1/chat/completions'; //message생성
 const url2 = 'https://api.openai.com/v1/images/generations'; //image생성
@@ -35,6 +36,8 @@ async function letterGenerator(item){
   })
   const result = await response.json();
 
+  alert("편지를 여는 중입니다. 잠시만 기다려주세요.");
+  
   //chatGpt응답 전달 --> 편지내용 gpt응답과 보내는 사람을 재조합하여 생성
   message = await generateMessage(result.choices[0].message.content);
 
@@ -44,8 +47,10 @@ async function letterGenerator(item){
   //img + message -> 편지 저장
   //saveMessage(message);
   saveMessage(message, image);
+
   //편지 보기
   showMessage(letterCount);
+  
   //저장된 편지 수 갱신
   letterCount++;
 }
@@ -75,15 +80,15 @@ function saveMessage(message, image){
 }
 
 function showMessage(count){
-  let openPopup = window.open("", 'popup', 'width=800, height=500');
-  openPopup.document.write(`
+  let letterPage = window.open("", 'popup', 'width=800, height=500');
+  letterPage.document.write(`
   <html>
     <head>
-      <link rel="stylesheet" type="text/css" href="styles/letter.css">
+      <link rel="stylesheet" type="text/css" href="../styles/letter.css">
     </head>
     <body>
       <div id="container">
-        <div class="img"><img src = "${letterArray[count].img}"></div>
+        <div class="img"><img src="${letterArray[count].img}"></div>
         <div class="text">${letterArray[count].msg}</div>
       </div>
     </body>
@@ -108,6 +113,6 @@ async function generateImage(message) {
   });
   
   const imageData = await imageResponse.json();
-  console.log(imageData);
+  //console.log(imageData);
   return imageData.data[0].url;
 }
