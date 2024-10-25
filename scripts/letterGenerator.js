@@ -1,5 +1,6 @@
-//apikey를 .env와 node.js를 이용해서 관리하려 했으나 혼자 개발하기에는 복잡한 관계로 이번 프로젝트에서 하지 않고자 함.
-const apiKey = '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'; // 여기에 본인의 OpenAI API 키를 넣으세요.
+//import config from "../config/apiKey.js";
+//const apiKey = config.apiKey;
+const apiKey = "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";
 const url1 = 'https://api.openai.com/v1/chat/completions'; //message생성
 const url2 = 'https://api.openai.com/v1/images/generations'; //image생성
 
@@ -20,8 +21,8 @@ async function letterGenerator(item){
   const data = {
     model: 'gpt-4o',
     messages: [
-      { role: 'system', content: '너는 감성적인 유리병 편지를 생성해.' },
-      { role: 'user', content: `${keyword}를 이용해서 반말이나 존댓말 중에 하나를 선택해서 편지를 작성해줘. 
+      { role: 'system', content: '너는 감성적인 편지를 생성해.' },
+      { role: 'user', content: `${keyword}를 이용해서 반말로 편지를 작성해줘. 
       절대 반말이랑 존댓말을 섞어서 쓰지마.
       보내는사람과 받는 사람의 관계는 서로 모르는 사이야.
       그러니 편지 외의 내용, 보내는사람, 받는사람 모두 작성하지마. 
@@ -36,15 +37,14 @@ async function letterGenerator(item){
   })
   const result = await response.json();
 
-  alert("편지를 여는 중입니다. 잠시만 기다려주세요.");
-
   //chatGpt응답 전달 --> 편지내용 gpt응답과 보내는 사람을 재조합하여 생성
-  message = await generateMessage(result.choices[0].message.content);
+  message = generateMessage(result.choices[0].message.content);
 
   //img생성
-  image = await generateImage(message);
-
-  //img + message -> 편지 저장
+  //image = await generateImage(message); //계속 village 혹은 villager에 맞는 이미지가 나오는 문제 발생함.
+  image = await generateImage(result.choices[0].message.content);
+  
+  //img + message -> 편지 저장(session storage)
   //saveMessage(message);
   saveMessage(message, image);
 
@@ -62,7 +62,7 @@ function generateMessage (message){
     '구름 정원', '북극의 별 섬', '햇살 마을', '다람쥐의 숲', '달콤한 과일 섬', '사탕나무 숲', '여우의 숲', '새벽의 정원', '꿈꾸는 달의 섬', '숨겨진 보물섬'
   ]
   const villager = ['코코', '베니', '루비', '루나', '찰리', '잭', '리오', '초코', '조지', '다니', 
-    '미리', '시나몬', '디온', '그레이스', '조이', '제이', '라온', '카시', '코코넛', '해리', 
+    '미리', '시나몬', '디온', '그레이스', '조이', '제이', '라온', '카시', '해리', 
     '넬리', '롤라', '피치', '폴리', '루이', '티키', '레이', '스노우', '세라', '미로'
   ];
 
@@ -118,7 +118,8 @@ async function generateImage(message) {
     headers: headers,
     body: JSON.stringify({
       model: "dall-e-3",
-      prompt: `${message}는 편지내용이야. 여기에 어울리는 밝고 감성적이면서 글이 없는 이미지를 생성해줘.`,
+      prompt: `${message}는 편지내용이야. 여기에 어울리는 밝고 감성적인 이미지를 생성해줘.
+      이미지에 글은 넣지마.`,
       size: "1024x1024",
     })
   });

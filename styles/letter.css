@@ -21,16 +21,16 @@ body{
 html, body {
     width: 100%;
     height: auto;
-    background-image: url("../images/letter2.jpg");
+    /*background-image: url("../images/letterBackground.jpg");
     background-size:cover;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat;*/
+    background-color: black;
 }
 #container{
     width: auto;
     position:absolute;
-    top:50%;
     left:50%;
-    transform: translate(-50%, -50%);/
+    transform: translateX(-50%);
 }
 div{
     display:inline-flex;
@@ -43,6 +43,7 @@ div{
     padding: 30px;
     border: 2px solid black;
     border-radius: 5px;
+    color:white;
 }
 .img {
     min-width: 300px;

@@ -1,3 +1,5 @@
+//import { letterGenerator } from "./letterGenerator.js";
+
 function input() {
 	/*input 함수
 	put 버튼을 눌러 자판기에 돈을 넣으면,
@@ -34,6 +36,7 @@ function buy(item) {
 	document.getElementById("wallet_money").innerText = walletMoney;
 
 	//3번
+	alert("편지를 여는 중입니다. 잠시만 기다려주세요.");
 	letterGenerator(item);
 
 	//4번 
