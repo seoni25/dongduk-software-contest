@@ -5,7 +5,7 @@ function input() {
 	put 버튼을 눌러 자판기에 돈을 넣으면,
 	1. 지갑에 그 만큼의 돈이 들어감.
 	2. input 내용을 초기화
-	3. 자판기 음료를 선택할 수 있음.*/
+	3. 자판기 편지를 선택할 수 있음.*/
 
 	let insertedMoney = parseInt(document.getElementById("insertedMoney").value);
 	let walletMoney = parseInt(document.getElementById("wallet_money").innerText);
