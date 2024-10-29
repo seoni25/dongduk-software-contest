@@ -12,42 +12,41 @@ a {
 @font-face {
     font-family: 'Hana_handwriting';
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/naverfont_05@1.0/Hana_handwriting.woff') format('woff');
-    font-weight: normal;
+    font-weight: bold;
     font-style: normal;
 }
 body{
     font-family: 'Hana_handwriting';
 }
 html, body {
-    width: 100%;
-    height: auto;
-    /*background-image: url("../images/letterBackground.jpg");
+    width: 100vw;
+    height: 100vh;
+    background-image: url("../images/letterBackground.jpg");
     background-size:cover;
-    background-repeat: no-repeat;*/
-    background-color: black;
+    background-repeat: no-repeat;
+    /*background-color: black;*/
 }
 #container{
-    width: auto;
+    width: 80vw;
+    height: 80vh;
     position:absolute;
     left:50%;
-    transform: translateX(-50%);
+    top:50%;
+    transform: translate(-50%, -50%);
 }
 div{
     display:inline-flex;
     margin: 10px;
 }
 .text{
-    min-width: 300px;
-    max-width: 300px;
+    width: 50vw;
     height: auto;
     padding: 30px;
-    border: 2px solid black;
-    border-radius: 5px;
-    color:white;
+    color:black;
+    font-size: larger;
 }
 .img {
-    min-width: 300px;
-    width: 300px;
+    width: 50vw;
     padding: 10px;
 }
 img{

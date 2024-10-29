@@ -36,7 +36,6 @@ function buy(item) {
 	document.getElementById("wallet_money").innerText = walletMoney;
 
 	//3번
-	alert("편지를 여는 중입니다. 잠시만 기다려주세요.");
 	letterGenerator(item);
 
 	//4번 
