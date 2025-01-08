@@ -1,5 +1,3 @@
-//import { letterGenerator } from "./letterGenerator.js";
-
 function input() {
 	/*input 함수
 	put 버튼을 눌러 자판기에 돈을 넣으면,

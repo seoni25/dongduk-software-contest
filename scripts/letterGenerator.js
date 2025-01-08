@@ -1,6 +1,6 @@
 //import config from "../config/apiKey.js";
 //const apiKey = config.apiKey;
-const apiKey = "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";
+const apiKey = ""; //apikey 숨김처리- 자신의 apikey를 쓸 것
 const url1 = 'https://api.openai.com/v1/chat/completions'; //message생성
 const url2 = 'https://api.openai.com/v1/images/generations'; //image생성
 
